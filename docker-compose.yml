@@ -1,9 +1,0 @@
-version: '3'
-
-services:
-  sqlite:
-    image: alpine
-    container_name: sqlite
-    volumes:
-      - ./data:/data
-    command: ["tail", "-f", "/dev/null"]
