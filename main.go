@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 	"os/signal"
+	"sync"
 	"syscall"
 
 	"github.com/google/generative-ai-go/genai"
@@ -20,8 +21,11 @@ import (
 	"google.golang.org/api/option"
 )
 
-var GenAIClient *genai.Client
-var WhatsmeowClient *whatsmeow.Client
+var (
+	GenAIClient     *genai.Client
+	WhatsmeowClient *whatsmeow.Client
+	mutex           sync.Mutex
+)
 
 func main() {
 	WhatsmeowClient = CreateClient()
@@ -107,7 +111,6 @@ func HandleMessage(messageEvent *events.Message) {
 			})
 		}
 	}
-
 }
 
 func GetGenAIClient() (*genai.Client, error) {
